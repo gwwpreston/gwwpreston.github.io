@@ -1,0 +1,109 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f6f1;
+  color: #333;
+}
+
+/* Header styling */
+header {
+  background: #94bbff;
+  color: #fff;
+  padding: 3em 1em 2em;
+  position: relative;
+  text-align: center;
+}
+
+.header-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header-content h1 {
+  margin: 0.3em 0;
+  font-size: 3em;
+}
+
+.header-content p {
+  margin: 0;
+  font-size: 1em;
+}
+
+/* Hamburger button */
+#menu-toggle {
+  display: none;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: white;
+  cursor: pointer;
+}
+
+/* Nav bar styles */
+nav {
+  background: #7288b1;
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  padding: 0.75em 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a.active {
+  border-bottom: 2px solid #f9f9f9;
+}
+
+/* Main content */
+main {
+  padding: 2em;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Footer */
+footer {
+  background: #7288b1;
+  color: white;
+  text-align: center;
+  padding: 1em;
+  margin-top: 3em;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    background: #7288b1;
+    text-align: center;
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  nav a {
+    padding: 1em 0;
+  }
+
+  .header-content h1 {
+    font-size: 1.5em;
+  }
+
+  .header-content p {
+    font-size: 0.9em;
+  }
+}
