@@ -424,7 +424,7 @@ button[type="submit"]:hover {
   nav.show {
     display: flex;
     pointer-events: auto; /* allow interaction */
-  }
+  } 
 
   nav a {
     padding: 1em 0;
@@ -460,4 +460,20 @@ button[type="submit"]:hover {
 
 main h2 {
   margin-bottom: 1em;
+}
+
+.calendar-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%; /* Adjust for aspect ratio (4:3 = 75%) */
+  height: 0;
+  overflow: hidden;
+}
+
+.calendar-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
