@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - [Website Name]</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="header-include"></div>
+
+
+<main>
+  <h2>Frequently asked questions:</h2>
+
+  <button id="toggle-all-btn">Expand All</button>
+
+    <div class="faq-item">
+        <div class="faq-question"><span class="arrow">▶</span> What is Girls Who Walk Preston?</div>
+        <div class="faq-answer">
+            We are a free walking and social group in Preston for women and non-binary people to connect with other likeminded individuals. 
+            No sign-up or membership is needed, you can just turn up to any of our walks or events which can be found in our monthly events calendar (pinned on our Instagram) and on Linktree.
+            Follow our Instagram and TikTok pages @girlswhowalkpreston to see more of what we get up to as a group!
+        </div>
+    </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span class="arrow">▶</span>Are there any age restrictions?</div>
+    <div class="faq-answer">
+        You must be 18+ to join our walks and social events. There is no upper age limit however the majority of our members are in their 20’s or 30’s.
+        Over 18’s are welcome to bring their babies or young children along, however by bringing anyone under 18, you accept full responsibility as their legal guardian.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span class="arrow">▶</span>Are dogs welcome on the walks?</div>
+    <div class="faq-answer">
+        Of course! We regularly have dogs at our walks so please bear that in mind if you are not a fan of dogs. 
+        Please only bring your dog(s) along if they are well-socialised and good with people/other dogs, and remember that they are your responsibility at all times.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span class="arrow">▶</span>Do I need a membership to join Girls Who Walk Preston?</div>
+    <div class="faq-answer">
+        There is no membership or subscription required to attend any Girls Who Walk Preston walks or events!
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span class="arrow">▶</span>How much does it cost to attend?</div>
+    <div class="faq-answer">
+        All walks and events are free unless stated otherwise. For all walks, there is no cost to actually attend, 
+        however there may be the opportunity to purchase a drink or some food before or after the walk. 
+        This is completely optional. <br><br>
+
+        For social events, the only time we will ask for payment is when we are required to pay externally for an 
+        activity or venue. In these cases, we will always strive to get the best deal for our members. 
+        Girls Who Walk Preston do not generate profit from any walks or events.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span class="arrow">▶</span>Can I attend alone?</div>
+    <div class="faq-answer">
+        Of course! The majority of our members attend walks/events solo, 
+        and everyone who attends is there for the same reason - to meet new people!
+        <br><br>
+        As we continue to grow as a group, we are still getting new members join every week 
+        so we can guarantee that you will not be the only newbie!
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"><span class="arrow">▶</span>I don't identify as a 'girl' - can I still attend?</div>
+    <div class="faq-answer">
+        The aim of Girls Who Walk Preston is and always has been to create a safe, 
+        welcoming and inclusive environment for women and non-binary people to connect with likeminded individuals. 
+        We are trans inclusive and across our socials, use the tagline 'for the girls, gays and theys'.
+        <br><br>
+        If you think this fits your vibe then we would love to have you!
+        <br><br>
+        Please remember to be kind and considerate to others in attendance and reach out to Grace 
+        if you have any concerns.
+    </div>
+  </div>
+
+  Don't see your question answered here? Feel free to <a href="contact.html">contact us</a>.
+</main>
+
+<footer>&copy; 2025 Girls Who Walk Preston</footer>
+
+<script src="script.js"></script>
+<script>
+  fetch('partials/header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-include').innerHTML = data;
+
+      // Then run any nav logic
+      const toggleButton = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+
+      if (toggleButton && navMenu) {
+        toggleButton.addEventListener('click', () => {
+          navMenu.classList.toggle('show');
+        });
+      }
+
+      // Add active class
+      const navLinks = document.querySelectorAll('nav a');
+      const path = window.location.pathname.split('/').pop();
+
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === path || (link.getAttribute('href') === 'index.html' && path === '')) {
+          link.classList.add('active');
+        }
+      });
+    });
+</script>
+</body>
+</html>

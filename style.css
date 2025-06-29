@@ -1,36 +1,84 @@
-/* Base styles */
-body {
+/* Base layout */
+
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f9f6f1;
-  color: #333;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Header styling */
+html, body {
+  height: 100%;
+  width:100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Lilita One', sans-serif;
+  color: #333;
+  font-size: 1.1em;
+}
+
+body {
+  background-image: url('assets/bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Background alpha overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3); /* semi-transparent white */
+  z-index: -1;
+}
+
+
+
 header {
   background: #94bbff;
   color: #fff;
-  padding: 3em 1em 2em;
+  padding: 1em 1em 0;
   position: relative;
+  z-index: 1000; /* Ensure header is above other content */
+}
+
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* Left section (logo) */
+.header-left {
+  flex: 0 0 auto;
+}
+.logo {
+  height: 110px;
+}
+
+/* Centre section (title) */
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.site-title {
+  font-size: 2em;
+  margin: 0;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
   text-align: center;
 }
 
-.header-content {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.header-content h1 {
-  margin: 0.3em 0;
-  font-size: 3em;
-}
-
-.header-content p {
-  margin: 0;
-  font-size: 1em;
-}
-
-/* Hamburger button */
+/* Menu button */
 #menu-toggle {
   display: none;
   position: absolute;
@@ -39,46 +87,328 @@ header {
   background: none;
   border: none;
   font-size: 2em;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
   color: white;
   cursor: pointer;
 }
 
-/* Nav bar styles */
-nav {
-  background: #7288b1;
-  display: flex;
-  justify-content: center;
-  gap: 1.5em;
-  padding: 0.75em 0;
+/* Responsive layout tweaks */
+@media (max-width: 620px) {
+  .logo {
+    display: none;
+  }
+
+  .site-title {
+    font-size: 2em;
+  }
+
+  #menu-toggle {
+    display: block;
+  }
+
+  .header-top {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
+@media (max-width: 620px) {
+  .header-wrapper {
+    display: flex;
+    justify-content: flex-end;  /* Align hamburger to right */
+    align-items: center;
+    background-color: #94bbff;
+    height: 60px;
+    padding: 0 1em;
+  }
+
+
+  .site-title {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    text-shadow: none;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  }
+
+
+  .header-left {
+    display: none; /* hide the logo only */
+  }
+
+  .header-center {
+    display: block;  /* 👈 make sure this is visible */
+    flex: 1;
+  }
+
+
+  #menu-toggle {
+    display: block;
+    position: static;
+    font-size: 2em;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  header {
+    padding: 0;  /* Remove padding above/below */
+    height: auto;
+    background-color: transparent; /* avoid overlap */
+  }
+}
+
+@media (max-width: 588px) {
+  .header-wrapper {
+    display: flex;
+    justify-content: flex-end;  /* Align hamburger to right */
+    align-items: center;
+    background-color: #94bbff;
+    height: 60px;
+    padding: 0 1em;
+  }
+
+
+  .site-title {
+    font-size: 1.2em !important;
+    margin: 0;
+    padding: 0;
+    text-shadow: none;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  }
+
+
+  .header-left {
+    display: none; /* hide the logo only */
+  }
+
+  .header-center {
+    display: block;  /* 👈 make sure this is visible */
+    flex: 1;
+  }
+
+
+  #menu-toggle {
+    display: block;
+    position: static;
+    font-size: 2em;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  header {
+    padding: 0;  /* Remove padding above/below */
+    height: auto;
+    background-color: transparent; /* avoid overlap */
+  }
+}
+/* Nav bar */
+/* Default nav styles */
+nav {
+  background: #7288b1;
+  position: absolute;
+  top: 100%;          /* Place nav directly below header */
+  left: 0;
+  width: 100vw;       /* Full viewport width */
+  z-index: 100000;
+
+  display: flex;      /* Keep it as flex */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+  padding: 0.75em 0;
+
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+  text-align: center;
+}
+
+/* When .show is added by JS */
+nav.show {
+  max-height: 500px;        /* enough to reveal full menu */
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;     /* allow interaction */
+}
+
+/* Nav links */
 nav a {
   color: white;
   text-decoration: none;
   font-weight: 500;
+  padding: 1em 0;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* added shadow */
 }
 
+/* Highlight active link */
 nav a.active {
   border-bottom: 2px solid #f9f9f9;
+  
 }
 
+/* Desktop styles */
+@media (min-width: 769px) {
+  nav {
+    display: flex;
+    max-height: none;
+    opacity: 1;
+    transform: none;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 1.5em;
+  }
+
+  nav a {
+    padding: 0;
+  }
+}
 /* Main content */
 main {
-  padding: 2em;
+  flex: 1;
   max-width: 800px;
-  margin: auto;
+  margin: 4em auto ;
+  padding: 1em;
 }
 
 /* Footer */
 footer {
-  background: #7288b1;
+  background: #6c82aa;
   color: white;
   text-align: center;
   padding: 1em;
-  margin-top: 3em;
 }
 
-/* Responsive styles */
+/* FAQ styles */
+/* FAQ styles */
+.faq-item {
+  margin-bottom: 1em;
+}
+
+/* The question bar */
+.faq-question {
+  cursor: pointer;
+  font-weight: bold;
+  background: #eee;
+  padding: 0.5em;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+
+
+.faq-answer {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: block;
+}
+
+
+.faq-item.expanded .faq-answer {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  display: block; /* ✅ add this line */
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.open .arrow {
+  transform: rotate(90deg);
+}
+
+.open .faq-answer {
+  display: block;
+}
+
+/* Contact form */
+.contact-intro p {
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  background-color: #f9f9f9;
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  padding: 0.75em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+button[type="submit"] {
+  padding: 0.75em;
+  background-color: #94bbff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: 'Lilita One', sans-serif;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #7aa7ff;
+}
+
+/* Social links */
+.social-centered {
+  display: flex;
+  justify-content: center;
+  gap: 1.2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.social-centered a {
+  font-size: 2rem;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.social-centered a:hover {
+  color: #94bbff;
+}
+
+/* Responsive tweaks */
 @media (max-width: 768px) {
   #menu-toggle {
     display: block;
@@ -93,17 +423,41 @@ footer {
 
   nav.show {
     display: flex;
+    pointer-events: auto; /* allow interaction */
   }
 
   nav a {
     padding: 1em 0;
   }
 
-  .header-content h1 {
+  .site-title {
     font-size: 1.5em;
   }
+}
 
-  .header-content p {
-    font-size: 0.9em;
-  }
+/* FAQ section */
+#toggle-all-btn {
+  background-color: #94bbff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 0.75em 1.5em;
+  border-radius: 6px;
+  margin: 1em 0;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  font-family: 'Lilita One', sans-serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#toggle-all-btn:hover {
+  background-color: #7ba8f0;
+}
+
+main h2 {
+  margin-bottom: 1em;
 }

@@ -2,31 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - [Website Name]</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-  <button id="menu-toggle">&#9776;</button>
-  <div class="header-content">
-    <h1>Contact Us</h1>
-  </div>
-</header>
+<div id="header-include"></div>
 
-<nav id="nav-menu">
-  <a href="index.html">Home</a>
-  <a href="about.html">About Us</a>
-  <a href="team.html">Our Team</a>
-  <a href="faq.html">FAQ</a>
-  <a href="contact.html">Contact Us</a>
-</nav>
-  <main>
-    <h2>We'd Love to Hear From You!</h2>
-    <p>Email: <a href="mailto:placeholder@email.com">placeholder@email.com</a></p>
-    <p>Instagram: <a href="https://instagram.com/placeholder" target="_blank">@placeholder</a></p>
-    <p>Or fill out our [form/contact page] (not yet implemented).</p>
-  </main>
-  <footer>&copy; 2025 [Website Name]</footer>
-  <script src="script.js"></script>
+
+<main>
+  <section class="contact-intro">
+    <h2>Get in touch!</h2>
+    <p>
+      Find us on social media, or use the form below to get in touch with us directly!
+    </p>
+    <div class="social-centered">
+      <a href="https://instagram.com/girlswhowalkpreston" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://tiktok.com/@girlswhowalkpreston" target="_blank" aria-label="TikTok">
+        <i class="fab fa-tiktok"></i>
+      </a>
+    </div>
+  </section>
+
+  <section class="contact-form">
+    <form action="https://formsubmit.co/grace@girlswhowalkpreston.org" method="POST">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email Address" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Enter your message here" required></textarea>
+      </div>
+
+      <button type="submit">Send Message</button>
+
+      <input type="hidden" name="_next" value="https://girlswhowalkpreston.org">
+    </form>
+  </section>
+</main>
+
+<footer>&copy; 2025 Girls Who Walk Preston</footer>
+<script src="script.js"></script>
+<script>
+  fetch('partials/header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-include').innerHTML = data;
+
+      // Then run any nav logic
+      const toggleButton = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+
+      if (toggleButton && navMenu) {
+        toggleButton.addEventListener('click', () => {
+          navMenu.classList.toggle('show');
+        });
+      }
+
+      // Add active class
+      const navLinks = document.querySelectorAll('nav a');
+      const path = window.location.pathname.split('/').pop();
+
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === path || (link.getAttribute('href') === 'index.html' && path === '')) {
+          link.classList.add('active');
+        }
+      });
+    });
+</script>
 </body>
 </html>
